@@ -4,13 +4,12 @@ import android.support.annotation.Size;
 import com.sun.istack.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
-import javax.persistence.Table;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -29,6 +28,8 @@ public class User {
     private String email;
     @NotNull
     private String pwHash;
+    @ManyToMany(mappedBy = "favorite")
+    private final List<Event> favoriteEvents = new ArrayList<>();
 
     public User() {}
 
