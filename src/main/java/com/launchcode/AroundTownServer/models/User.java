@@ -28,8 +28,8 @@ public class User {
     private String email;
     @NotNull
     private String pwHash;
-    @ManyToMany(mappedBy = "favorite")
-    private final List<Event> favoriteEvents = new ArrayList<>();
+//    @ManyToMany(mappedBy = "favorites")
+//    private final List<Event> favoriteEvents = new ArrayList<>();
 
     public User() {}
 

@@ -8,12 +8,14 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "favorites")
 public class Favorites {
 
     @Id
