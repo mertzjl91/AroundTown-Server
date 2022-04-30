@@ -102,5 +102,13 @@ public class UserController {
 
     }
 
+    @GetMapping("/users/getIdByUsername/{username}")
+    public int getIdByUsername(@PathVariable("username") String username) {
+
+        Optional<User> userData = userRepository.findByUsername(username);
+        User currentUser = userData.get();
+        return currentUser.getId();
+    }
+
 
 }

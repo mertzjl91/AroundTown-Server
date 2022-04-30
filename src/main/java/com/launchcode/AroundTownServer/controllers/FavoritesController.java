@@ -8,6 +8,8 @@ import com.launchcode.AroundTownServer.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/favorites")
@@ -26,19 +28,26 @@ public class FavoritesController {
         this.favoritesRepository = favoritesRepository;
         this.userRepository = userRepository;
     }
-
-    @PostMapping("/saveFavoriteEvent")
-    public Favorites saveFavoriteEvent(@RequestBody Favorites favoriteEvent) {
-        User currentUser = this.userRepository.findById(favoriteEvent.getUserId()).get();
-        System.out.println("made it to save");
-        return this.favoritesRepository.save(favoriteEvent);
+    @GetMapping()
+    public List<Favorites> getAllFavorites() {
+        System.out.println("here at last!!");
+        return (List<Favorites>) this.favoritesRepository.findAll();
     }
 
-    @DeleteMapping("/deleteFavoriteEvent/{userId}/{eventId}")
-    public void deleteFavoriteEvent(@PathVariable("eventId") int eventId, @PathVariable("userId") int userId) {
+    @PostMapping("/saveFavoriteEvent")
+    public Favorites saveFavoriteEvent(@RequestBody Favorites favorite) {
+        User currentUser = this.userRepository.findById(favorite.getUserId()).get();
+        System.out.println("made it to save");
+        favoritesRepository.save(favorite);
+        return favorite;
+    }
+
+    @DeleteMapping("/deleteFavoriteEvent/{eventId}/{userId}")
+    public Favorites deleteFavoriteEvent(@PathVariable("eventId") int eventId, @PathVariable("userId") int userId) {
         Favorites favoriteEvent = favoritesRepository.findFavoriteByUserIdAndEventId(userId, eventId);
         System.out.println("made it to delete");
-        this.favoritesRepository.delete(favoriteEvent);
+        favoritesRepository.delete(favoriteEvent);
+        return favoriteEvent;
     }
 
 
